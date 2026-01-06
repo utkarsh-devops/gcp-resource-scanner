@@ -9,6 +9,9 @@ A high-performance, premium-styled web tool to discover and list Google Cloud Pl
 ## ✨ Features
 
 - **Instant Discovery**: Scans your GCP project for all assets using the Cloud Asset Inventory API.
+- **✨ Visual Dashboard**: Interactive charts showing resource distribution by type.
+- **✨ Smart Filtering**: Instantly search and filter resources by type or name.
+- **✨ CSV Export**: Download your resource list for offline analysis.
 - **Premium UI**: Beautiful dark mode with glassmorphism effects and smooth animations.
 - **Smart Authentication**: Automatically handles Quota Project attribution using the target project ID.
 - **Responsive Design**: Works perfectly on different screen sizes.

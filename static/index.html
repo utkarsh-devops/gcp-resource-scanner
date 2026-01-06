@@ -1,31 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GCP Resource Scanner</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_sidebar.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
 </head>
+
 <body>
-    <div class="container">
-        <header>
-            <h1>GCP Resource Scanner</h1>
-            <p class="subtitle">Discover and list your cloud assets instantly</p>
-        </header>
+    <div class="app-layout">
+        <!-- History Sidebar -->
+        <aside class="history-sidebar">
+            <div class="sidebar-header">
+                <h2>🕒 History</h2>
+                <button id="refresh-history" class="icon-btn">↻</button>
+            </div>
+            <div id="history-list">
+                <!-- History items will go here -->
+                <p class="empty-state">No past scans found.</p>
+            </div>
+        </aside>
 
-        <div class="input-group">
-            <input type="text" id="project-id" placeholder="Enter GCP Project ID" autocomplete="off">
-            <button id="scan-btn">Scan Resources</button>
-        </div>
+        <!-- Main Content -->
+        <main class="container">
+            <header>
+                <h1>GCP Resource Scanner</h1>
+                <p class="subtitle">Discover and list your cloud assets instantly</p>
+            </header>
 
-        <div id="loading" class="loading-spinner"></div>
-        <div id="error" class="error-message"></div>
-        
-        <div id="results-area">
-            <!-- Results will appear here -->
-        </div>
+            <div class="input-group">
+                <input type="text" id="project-id" placeholder="Enter GCP Project ID" autocomplete="off">
+                <button id="scan-btn">Scan Resources</button>
+            </div>
+
+            <div id="loading" class="loading-spinner"></div>
+            <div id="error" class="error-message"></div>
+
+            <!-- Dashboard & Controls -->
+            <div id="dashboard-area" style="display: none;">
+                <div class="stats-container">
+                    <div class="dashboard-stats">
+                        <div
+                            style="flex: 1; max-width: 500px; height: 400px; position: relative; display: flex; justify-content: center;">
+                            <canvas id="resourceChart"></canvas>
+                        </div>
+                        <div class="total-cost-display">
+                            <div class="cost-label">Est. Monthly Cost</div>
+                            <div class="cost-value" id="total-cost-value">$0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls-bar">
+                    <div class="search-box">
+                        <input type="text" id="filter-search" placeholder="Search resources...">
+                    </div>
+
+                    <div class="filter-box">
+                        <select id="filter-type">
+                            <option value="all">All Types</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-box">
+                        <select id="group-by">
+                            <option value="none">No Grouping</option>
+                            <option value="type">Group by Type</option>
+                            <option value="location">Group by Location</option>
+                        </select>
+                    </div>
+
+                    <div class="view-toggles">
+                        <button id="view-list" class="icon-btn active" title="List View">📄</button>
+                        <button id="view-graph" class="icon-btn" title="Graph View">🕸️</button>
+                        <button id="view-security" class="icon-btn" title="Security Scan">🛡️</button>
+                        <button id="view-advisor" class="icon-btn" title="Architecture Advisor">💡</button>
+                    </div>
+
+                    <button id="export-btn" class="secondary-btn">⬇ Export CSV</button>
+                </div>
+            </div>
+
+            <div id="results-area">
+                <!-- Results will appear here -->
+            </div>
+            <div id="graph-area"
+                style="display: none; height: 600px; border: var(--glass-border); border-radius: 12px; background: rgba(0,0,0,0.2);">
+            </div>
+            <div id="security-area"></div>
+            <div id="advisor-area"></div>
+        </main>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=2"></script>
 </body>
+
 </html>
